@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -27,6 +29,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +46,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
+    private static final int REQUEST_CODE_SELECT_IMAGE = 101;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_INTERNET = 2;
     private static final String TAG="MainActivity";
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String END_POST_API="http://192.168.1.51:5000/predict";
     private Bitmap mBitmap;
     private TextView mPercent,mDisease;
+    private Button mGallaryBtn;
 
 
     @Override
@@ -72,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pestDiseaseButton = findViewById(R.id.pest_disease);
         pestDiseaseButton.setVisibility(View.GONE);
         pestDiseaseButton.setOnClickListener(this);
+
+        mGallaryBtn=findViewById(R.id.chose_galary);
+        mGallaryBtn.setOnClickListener(this);
 
 
         imageView = findViewById(R.id.image_view);
@@ -110,7 +118,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             pestDiseaseButton.setVisibility(View.VISIBLE);
             leafDiseaseButton.setVisibility(View.VISIBLE);
             mBitmap=imageBitmap;
+            return;
         }
+        if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            if (selectedImageUri != null) {
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    imageView.setImageBitmap(bitmap);
+                    leafDiseaseButton.setVisibility(View.VISIBLE);
+                    mBitmap=bitmap;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e(TAG,e.getMessage());
+                }
+            }
+        }
+
         // TO DO : add handle exception here
     }
     @Override
@@ -221,6 +246,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "We are comming soon !", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (R.id.chose_galary==id){
+
+            Log.i(TAG,"Gallary Button was clicked! ");
+            selectImageFromGallery();
+            Toast.makeText(this, "We are comming soon !", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
     }
+    private void selectImageFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
+    }
+
 }
