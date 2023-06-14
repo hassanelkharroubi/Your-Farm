@@ -178,13 +178,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         RequestBody.create(MediaType.parse("image/jpeg"), imageData))
                 .addFormDataPart("type",type)
                 .build();
-
         // Create request
         Request request = new Request.Builder()
                 .url(END_POST_API)
                 .post(requestBody)
                 .build();
-
         // Execute the request
         client.newCall(request).enqueue(new Callback() {
             @Override
