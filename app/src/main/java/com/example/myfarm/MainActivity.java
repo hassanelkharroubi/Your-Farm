@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mGallaryBtn.setOnClickListener(this);
 
 
+
         imageView = findViewById(R.id.image_view);
 
         mPercent=findViewById(R.id.percent);
@@ -115,8 +116,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             imageView.setImageBitmap(imageBitmap);
-            pestDiseaseButton.setVisibility(View.VISIBLE);
-            leafDiseaseButton.setVisibility(View.VISIBLE);
             mBitmap=imageBitmap;
             return;
         }
@@ -127,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                     imageView.setImageBitmap(bitmap);
+                    pestDiseaseButton.setVisibility(View.VISIBLE);
                     leafDiseaseButton.setVisibility(View.VISIBLE);
                     mBitmap=bitmap;
                 } catch (IOException e) {
@@ -158,9 +158,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void sendImage(Bitmap bitmap) {
+    public void sendImage(Bitmap bitmap,String type) {
         // Create OkHttp client
       //  OkHttpClient client = new OkHttpClient();
+        Log.i(TAG,type);
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectionPool(new ConnectionPool(0, 1, TimeUnit.NANOSECONDS))
                 .build();
@@ -175,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("image", "image.jpg",
                         RequestBody.create(MediaType.parse("image/jpeg"), imageData))
+                .addFormDataPart("type",type)
                 .build();
 
         // Create request
@@ -237,13 +239,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (R.id.leaf_disease==id){
             // call leaf_diseases
             Log.i(TAG,"leaf disease button was clicked! ");
-            sendImage(mBitmap);
+            sendImage(mBitmap,"leaf_disease");
             return;
         }
         if (R.id.pest_disease==id){
 
             Log.i(TAG,"pest disease button was clicked! ");
             Toast.makeText(this, "We are comming soon !", Toast.LENGTH_SHORT).show();
+            sendImage(mBitmap,"pest_disease");
             return;
         }
         if (R.id.chose_galary==id){
