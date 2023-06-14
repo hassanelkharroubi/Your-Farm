@@ -17,37 +17,46 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/camera_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="40dp"
             android:text="Open Camera" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
+        <Button
+            android:id="@+id/chose_galary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Choose from Gallary" />
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/pest_disease"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="40dp"
-                android:text="Pest Disease" />
 
-            <Button
-                android:id="@+id/leaf_disease"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Leaf Disease" />
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/pest_disease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="40dp"
+            android:text="Pest Disease" />
+
+        <Button
+            android:id="@+id/leaf_disease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Leaf Disease" />
     </LinearLayout>
 
     <LinearLayout
