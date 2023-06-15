@@ -86,19 +86,42 @@
 
         <EditText
             android:id="@+id/humidity"
-            android:layout_width="wrap_content"
+            android:layout_width="181dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:ems="10"
-            android:inputType="numberDecimal"
-            android:hint="Relative Humidity (%)" />
+            android:hint="Relative Humidity (%)"
+            android:inputType="numberDecimal" />
 
         <Button
             android:id="@+id/send_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Submit" />
+            android:text="Submit"
+            android:textColorHighlight="#0CC331"
+            android:textColorLink="#0CC331" />
+
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Reset" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/conseil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:textSize="40sp" />
+
+    <ImageView
+        android:id="@+id/fruitImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 </LinearLayout>
