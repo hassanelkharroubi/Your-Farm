@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Your code logic for button click goes here
                 // For example, you can show a Toast message
                 Toast.makeText(LoginActivity.this, "Loging ...", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
                 // Finish the current activity (login activity)
                 finish();

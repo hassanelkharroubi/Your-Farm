@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myfarm.config.Network;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,7 +42,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     private Button mResetButton;
     private TextView mConseilText;
     private ImageView mFruitImage;
-    private static final String END_POST_API="http://192.168.1.51:5000/soule";
+
     private static final String END_GET_API="http://192.168.1.51:5000/get_image";
     private static final String TAG="FormActivity";
     @Override
@@ -120,7 +122,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
 
         // Create the request
         Request request = new Request.Builder()
-                .url(END_POST_API)
+                .url(Network.getEndApi("soule"))
                 .post(requestBody)
                 .build();
 
@@ -167,7 +169,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         OkHttpClient client = new OkHttpClient();
 
         // Build the URL for the API endpoint with the image name as a query parameter
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(END_GET_API).newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Network.getEndApi("get_image")).newBuilder();
         urlBuilder.addQueryParameter("image_name", imageName);
         String apiUrl = urlBuilder.build().toString();
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize the color of the action bar -->
+        <item name="colorPrimary">@color/green</item>
+    </style>
+</resources>

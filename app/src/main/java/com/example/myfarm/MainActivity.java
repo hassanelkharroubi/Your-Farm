@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import com.example.myfarm.api.ImageUploadListener;
 import com.example.myfarm.api.ImageUploader;
 import com.example.myfarm.api.ImageUploadListener;
+import com.example.myfarm.config.Network;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,9 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button leafDiseaseButton;
     private Button pestDiseaseButton;
     private ImageView imageView;
-    private OkHttpClient client;
-    private static final String END_API="http://192.168.1.51:5000/test";
-    private static final String END_POST_API="http://192.168.1.51:5000/predict";
+
     private Bitmap mBitmap;
     private TextView mPercent,mDisease;
     private Button mGallaryBtn;
@@ -180,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .build();
         // Create request
         Request request = new Request.Builder()
-                .url(END_POST_API)
+                .url(Network.getEndApi("predict"))
                 .post(requestBody)
                 .build();
         // Execute the request
