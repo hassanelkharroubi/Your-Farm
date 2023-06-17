@@ -18,7 +18,7 @@
         app:srcCompat="@mipmap/ic_launcher_round" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/assistant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/green"
@@ -32,13 +32,13 @@
         android:text="Fertilisation" />
 
     <Button
-        android:id="@+id/maladie"
+        android:id="@+id/danger"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/green"
         android:text="Le danger" />
     <Button
-        android:id="@+id/layout_width"
+        android:id="@+id/meteo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/green"

@@ -1,18 +1,23 @@
 package com.example.myfarm;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.myfarm.config.Network;
 
 import org.json.JSONException;
@@ -24,7 +29,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -41,9 +45,8 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     private Button mSumbitBtn;
     private Button mResetButton;
     private TextView mConseilText;
+    private TextView mNameText;
     private ImageView mFruitImage;
-
-    private static final String END_GET_API="http://192.168.1.51:5000/get_image";
     private static final String TAG="FormActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,11 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         mResetButton = findViewById(R.id.resetButton);
         mResetButton.setOnClickListener(this);
         mConseilText=findViewById(R.id.conseil);
+        mNameText=findViewById(R.id.name);
+        mConseilText.setVisibility(View.GONE);
+        mNameText.setVisibility(View.GONE);
         mFruitImage=findViewById(R.id.fruitImage);
+
     }
     @Override
     public void onClick(View view) {
@@ -101,7 +108,12 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
             float rainfallValue = Float.parseFloat(rainfallText);
             float temperatureValue = Float.parseFloat(temperatureText);
             float humidityValue = Float.parseFloat(humidityText);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mSumbitBtn.getWindowToken(), 0);
+
+
             sendFormValues(nitrogenValue, phosphorousValue, potassiumValue, pHLevelValue, rainfallValue, temperatureValue, humidityValue);
+
 
         }
     }
@@ -143,10 +155,14 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                         JSONObject jsonObject = new JSONObject(responseData);
                         String name=jsonObject.getString("prediction");
                         String image_name=jsonObject.getString("image_name");
+                        String desc=jsonObject.getString("description");
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                mConseilText.setText(name);
+                                mConseilText.setVisibility(View.VISIBLE);
+                                mConseilText.setText(desc);
+                                mNameText.setVisibility(View.VISIBLE);
+                                mNameText.setText(name.toUpperCase());
                             }
                         });
 

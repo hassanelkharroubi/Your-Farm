@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfarm.adapter.ChatAdapter;
+import com.example.myfarm.config.Network;
 import com.example.myfarm.model.Message;
 
 import java.io.IOException;
@@ -30,8 +31,6 @@ public class ChatActivity extends AppCompatActivity {
 
     private ChatAdapter chatAdapter;
     private List<Message> dataList ;
-
-    private static final String END_GET_API="http://192.168.8.100:5000/chat";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +80,9 @@ public class ChatActivity extends AppCompatActivity {
 
         // Create the request
         Request request = new Request.Builder()
-                .url(END_GET_API)
+                .url(Network.getEndApi("chat"))
                 .post(requestBody)
                 .build();
-
         // Send the request asynchronously
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -103,8 +101,6 @@ public class ChatActivity extends AppCompatActivity {
                     Log.i(TAG,"from bot :"+ chatMessage.getContent());
 
                     // Add the new ChatMessage to your data list
-
-
                     // Notify the adapter that the data set has changed
                     runOnUiThread(new Runnable() {
                         @Override

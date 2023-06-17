@@ -3,6 +3,7 @@ package com.example.myfarm.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         Message message = messageList.get(position);
         holder.bind(message);
+        if (message.getSender()=="user")
+            holder.imageViewIcon.setImageResource(R.drawable.baseline_person_24);
+        else
+            holder.imageViewIcon.setImageResource(R.drawable.baseline_smart_toy_24);
+
     }
 
     @Override
@@ -48,14 +54,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
     class MessageViewHolder extends RecyclerView.ViewHolder {
         TextView messageTextView;
+        ImageView imageViewIcon;
 
         MessageViewHolder(View itemView) {
             super(itemView);
             messageTextView = itemView.findViewById(R.id.messageTextView);
+            imageViewIcon=itemView.findViewById(R.id.icon);
         }
 
         void bind(Message message) {
-            messageTextView.setText(message.getSender()+" : "+message.getContent());
+            messageTextView.setText(message.getContent());
+
         }
     }
 }

@@ -7,12 +7,23 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_rounded_background"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        android:text="Here where you can detect leaf disaese or pest disese using your Camera or a photo from your Galary"
+        android:textSize="24sp" />
+
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_below="@id/camera_button"
-        android:scaleType="fitCenter" />
+        android:layout_margin="4dp"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,6 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginRight="40dp"
+            android:padding="4dp"
+            android:background="@color/green"
             android:text="Open Camera" />
 
         <Button
@@ -33,6 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@color/green"
+            android:padding="4dp"
             android:text="Choose from Gallary" />
     </LinearLayout>
 
@@ -49,6 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginRight="40dp"
+            android:background="@color/green"
+            android:padding="4dp"
             android:text="Pest Disease" />
 
         <Button
@@ -56,6 +73,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@color/green"
+            android:padding="4dp"
             android:text="Leaf Disease" />
     </LinearLayout>
 

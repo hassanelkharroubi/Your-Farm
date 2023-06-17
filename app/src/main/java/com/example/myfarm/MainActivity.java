@@ -20,9 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.myfarm.api.ImageUploadListener;
-import com.example.myfarm.api.ImageUploader;
-import com.example.myfarm.api.ImageUploadListener;
 import com.example.myfarm.config.Network;
 
 import org.json.JSONException;
@@ -83,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         imageView = findViewById(R.id.image_view);
+        imageView.setVisibility(View.GONE);
 
         mPercent=findViewById(R.id.percent);
         mDisease=findViewById(R.id.name_disease);
@@ -114,7 +112,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageView.setVisibility(View.VISIBLE);
             imageView.setImageBitmap(imageBitmap);
+            pestDiseaseButton.setVisibility(View.VISIBLE);
+            leafDiseaseButton.setVisibility(View.VISIBLE);
             mBitmap=imageBitmap;
             return;
         }
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    imageView.setVisibility(View.VISIBLE);
                     imageView.setImageBitmap(bitmap);
                     pestDiseaseButton.setVisibility(View.VISIBLE);
                     leafDiseaseButton.setVisibility(View.VISIBLE);
@@ -200,13 +202,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Log.i(TAG,responseData);
                         try {
                             JSONObject jsonObject = new JSONObject(responseData);
-                            String diseaseName=jsonObject.getString("Disease Name:");
-                            double percent=jsonObject.getDouble("Percentage ");
+                            String diseaseName=jsonObject.getString("Disease_Name");
+
+                            double percent=jsonObject.getDouble("Percentage");
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mDisease.setText(diseaseName);
-                                    mPercent.setText(Integer.toString((int) percent));
+                                    String rep=diseaseName.replace("_"," ").trim().replaceAll("\\s+", " ");;
+                                    mDisease.setText(rep);
+                                    mPercent.setText("Trust: "+Integer.toString((int) percent)+"%");
 
                                 }
                             });
@@ -240,9 +244,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         if (R.id.pest_disease==id){
-
             Log.i(TAG,"pest disease button was clicked! ");
-            Toast.makeText(this, "We are comming soon !", Toast.LENGTH_SHORT).show();
             sendImage(mBitmap,"pest_disease");
             return;
         }

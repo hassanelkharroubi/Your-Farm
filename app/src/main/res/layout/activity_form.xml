@@ -20,7 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:layout_margin="4dp"
             android:inputType="numberDecimal"
+            android:background="@drawable/edittext_rounded_background"
             android:hint="Nitrogen" />
 
         <EditText
@@ -30,6 +32,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="numberDecimal"
+            android:layout_margin="4dp"
+            android:background="@drawable/edittext_rounded_background"
             android:hint="Phosphorous" />
 
         <EditText
@@ -39,6 +43,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="numberDecimal"
+            android:layout_margin="4dp"
+            android:background="@drawable/edittext_rounded_background"
             android:hint="Potassium" />
     </LinearLayout>
 
@@ -48,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:layout_marginRight="12dp"
+
         android:orientation="horizontal">
 
         <EditText
@@ -56,7 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:layout_margin="4dp"
             android:inputType="numberDecimal"
+            android:background="@drawable/edittext_rounded_background"
             android:hint="pH level" />
 
         <EditText
@@ -65,7 +74,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:layout_margin="4dp"
             android:inputType="numberDecimal"
+            android:background="@drawable/edittext_rounded_background"
             android:hint="Rainful(mm)" />
 
         <EditText
@@ -75,7 +86,9 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:hint="Temperature(°C)" />
+            android:layout_margin="4dp"
+            android:background="@drawable/edittext_rounded_background"
+            android:hint="Temp(°C)" />
     </LinearLayout>
 
     <LinearLayout
@@ -89,7 +102,9 @@
             android:layout_width="181dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Relative Humidity (%)"
+            android:layout_margin="4dp"
+            android:hint="Humidity (%)"
+            android:background="@drawable/edittext_rounded_background"
             android:inputType="numberDecimal" />
 
         <Button
@@ -99,29 +114,44 @@
             android:layout_weight="1"
             android:text="Submit"
             android:textColorHighlight="#0CC331"
+            android:layout_margin="4dp"
+            android:backgroundTint="@color/green"
             android:textColorLink="#0CC331" />
 
         <Button
             android:id="@+id/resetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"
+            android:layout_margin="4dp"
             android:layout_weight="1"
             android:text="Reset" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:background="@drawable/round_image" />
+    <TextView
         android:id="@+id/conseil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:gravity="center"
-        android:textSize="40sp" />
+        android:background="@drawable/round_image"
+        android:padding="8dp"
+        android:textSize="24sp" />
 
     <ImageView
         android:id="@+id/fruitImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/round_image"
+        android:scaleType="centerCrop"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 </LinearLayout>
