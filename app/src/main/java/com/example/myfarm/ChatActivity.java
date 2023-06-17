@@ -20,6 +20,7 @@ import com.example.myfarm.model.Message;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.*;
 
@@ -80,10 +81,13 @@ public class ChatActivity extends AppCompatActivity {
 
 
     public void sendToAPI(String messageContent) {
-        OkHttpClient client = new OkHttpClient();
-
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS) // Set connection timeout to 10 seconds
+                .readTimeout(300, TimeUnit.SECONDS) // Set read timeout to 30 seconds
+                .build();
         // Create the request body
         RequestBody requestBody = new FormBody.Builder()
+
                 .add("message", messageContent)
                 .build();
         Log.i(TAG,"message to send is "+messageContent);
@@ -100,8 +104,14 @@ public class ChatActivity extends AppCompatActivity {
                 // Handle the failure
                 e.printStackTrace();
                 Log.e(TAG,e.getMessage());
-                Toast.makeText(ChatActivity.this, "Please retry... timeout error", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(ChatActivity.this, "Please retry... timeout error", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                });
+
             }
 
             @Override
